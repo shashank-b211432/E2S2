@@ -1,0 +1,60 @@
+.searchbar{
+    display: flex;
+    justify-content: center;
+}
+button{
+    background-color: #1cc54f;
+    color: white;
+    border-radius: 5px;
+    border: 0;
+}
+input::placeholder{
+    color: white;
+}
+input{
+    height: 30px;
+}
+input[type="text"]{
+    width: 400px;
+    margin-right: 5px;
+    background-color: rgb(151, 153, 152);
+    border: 0;
+}
+input[type="submit"]{
+    width: 100px;
+    color: white;
+    margin-left: 5px;
+    background-color: #1cc54f;
+    border-radius: 5px;
+    border: none;
+}
+#t1{
+    border-radius: 5px;
+}
+.heading{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+    font-size: 40px;
+    text-align: center;
+}
+h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.card{
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+    text-align: center;
+}
+img{
+    height: 200px;
+    border-radius: 5px;
+}
+.details{
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FOOD RECIPE APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./recepie.css">
+  </head>
+  <body>
+    <div class="heading">
+        <p>FOOD RECIPE APP</p>
+    </div>
+    <div class="searchbar">
+        <input type="text" placeholder="  Enter Dishes" id="t1">
+        <input type="submit" onclick="findrecipe()">
+    </div>
+    <div class="details" id="details"></div>
+    <script>
+        const recipes = [
+    // 🥦 Vegetarian Recipes
+            { name: "Carrot Soup", img: "https://www.thespruceeats.com/thmb/kARn30WXmFuVZV9uh9JAUghQ8JQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/creamy-vegan-carrot-soup-with-coconut-3377977-hero-01-902357c71f6d40aba52e6d7628757640.jpg", page: "carrot_soup.html" , cat:"veg" },
+            { name: "Carrot Halwa", img: "https://cdn.cdnparenting.com/articles/2020/01/24153853/Carrot-Halwa-Recipe.webp", page: "carrot_halwa.html" , cat:"veg" },
+            { name: "Carrot Stir Fry", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFn5LU9KhwecOn2fnRd1GoCHtXHxjXM2hHdw&s", page: "carrot_stir_fry.html"  , cat:"veg"},
+
+            { name: "Palak Paneer", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4uogDMcfXVkf6C6TsARH0EIZbS1gK3P6GCw&s", page: "palak_paneer.html"  , cat:"veg"},
+            { name: "Methi Malai Paneer", img: "https://www.shanazrafiq.com/wp-content/uploads/2018/07/Methi-Malai-Paneer-3.jpg", page: "methi_malai_paneer.html" , cat:"veg" },
+            { name: "Paneer Butter Masala", img: "https://recipesaresimple.com/wp-content/uploads/2021/07/paneer-butter-masala.jpg", page: "paneer_butter_masala.html" , cat:"veg" },
+
+            { name: "Aloo Gobi", img: "https://aahaaramonline.com/wp-content/uploads/2016/04/Aloo_Gobi_Cauliflower_Potato_Stir_Fry.jpg", page: "aloo_gobi.html" , cat:"veg" },
+            { name: "Aloo Matar", img: "https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Punjabi-Aloo-Matar-Recipe.jpg", page: "aloo_matar.html" , cat:"veg" },
+            { name: "Aloo Jeera", img: "https://gheespot.com/wp-content/uploads/2021/11/Jeera-Aloo-scaled.jpeg?v=1644986956", page: "aloo_jeera.html" , cat:"veg" },
+
+            { name: "Tomato Rasam", img: "https://fromzerotocurry.com/wp-content/uploads/2023/05/IMGP1245-scaled.jpg", page: "tomato_rasam.html" , cat:"veg" },
+            { name: "Tomato Chutney", img: "https://www.cubesnjuliennes.com/wp-content/uploads/2019/03/Best-Tomato-Chutney-Recipe-500x375.jpg", page: "tomato_chutney.html"  , cat:"veg"},
+            { name: "Tomato Dal", img: "https://www.honeywhatscooking.com/wp-content/uploads/2023/06/Andhra-Style-Tomato-Dal-Tomato-Pappu-Featured.jpg", page: "tomato_dal.html" , cat:"veg" },
+
+            // 🍗 Non-Vegetarian Recipes
+            { name: "Butter Chicken", img: "https://www.maggi.in/sites/default/files/styles/home_stage_944_531/public/srh_recipes/a3a547c6ff7319e1da397b64fbeedc92.jpg?h=c61b6a12&itok=i01ZdMQ1", page: "https://www.indianhealthyrecipes.com/butter-chicken/", cat:"Nonveg"},
+            { name: "Chicken Tikka Masala", img: "https://www.seriouseats.com/thmb/DbQHUK2yNCALBnZE-H1M2AKLkok=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/chicken-tikka-masala-for-the-grill-recipe-hero-2_1-cb493f49e30140efbffec162d5f2d1d7.JPG", page: "https://www.indianhealthyrecipes.com/chicken-tikka-masala/", cat:"Nonveg"},
+            { name: "Chicken Korma", img: "https://afghancooks.com/wp-content/uploads/2022/09/IMG-1912-jpg-1024x576.jpg", page: "https://www.indianhealthyrecipes.com/chicken-korma-recipe/", cat:"Nonveg"},
+
+            { name: "Chicken Biryani", img: "https://vismaifood.com/storage/app/uploads/public/e12/7b7/127/thumb__700_0_0_0_auto.jpg", page: "https://www.indianhealthyrecipes.com/chicken-biryani-recipe/", cat:"Nonveg"},
+            { name: "Mutton Biryani", img: "https://bonmasala.com/wp-content/uploads/2022/10/mutton-biriyani-recipe.jpeg", page: "https://www.indianhealthyrecipes.com/mutton-biryani/", cat:"Nonveg"},
+            { name: "Egg Biryani", img: "https://www.chefkunalkapur.com/wp-content/uploads/2021/03/egg-biryani-1-1300x868.jpeg?v=1625193642", page: "https://www.indianhealthyrecipes.com/egg-biryani-recipe-how-to-make-easy-egg-biryani/", cat:"Nonveg"},
+
+            { name: "Fish Curry", img: "https://palatesdesire.com/wp-content/uploads/2020/02/Fish_curry_mangalore@Palates_Desire-scaled.jpg", page: "fish_curry.html", cat:"Nonveg"},
+            { name: "Prawns Curry", img: "https://i.ytimg.com/vi/aAy3nW9SiPA/maxresdefault.jpg", page: "prawns_curry.html", cat:"Nonveg"},
+            { name: "Crab Curry", img: "https://www.thefooddictator.com/wp-content/uploads/2016/08/Jaffna-Style-Crab-Curry.jpg", page: "crab_curry.html", cat:"Nonveg"},
+
+            { name: "Beef Steak", img: "https://nebraskastarbeef.com/wp-content/uploads/2022/09/52913995_m-scaled.jpg", page: "beef_steak.html", cat:"Nonveg"},
+            { name: "Grilled Chicken", img: "https://www.spiceindiaonline.com/wp-content/uploads/2021/05/Tandoori-Chicken-20.jpg", page: "grilled_chicken.html", cat:"Nonveg"},
+            { name: "Tandoori Chicken", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXZT5f6Bh9u4CmYSNGwZAdlxg-ooxLSTb_qw&s", page: "tandoori_chicken.html", cat:"Nonveg"},
+
+            // 🎂 Cakes & Desserts
+            { name: "Chocolate Cake", img: "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/birthday_chocolate_24628_16x9.jpg", page: "https://www.allrecipes.com/recipe/17981/one-bowl-chocolate-cake-iii/" ,cat:"nonveg"},
+            { name: "Chocolate Brownies", img: "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/richchocolatebrownie_1933_16x9.jpg", page: "chocolate_brownies.html" ,cat:"nonveg"},
+            { name: "Chocolate Mousse", img: "https://i.ytimg.com/vi/NyW4jAfILJk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCmDhZQUCteGnlY3fZvN8nmE2oGIg", page: "chocolate_mousse.html" ,cat:"nonveg"},
+
+            { name: "Vanilla Sponge Cake", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3RWE8tGB_UlhS51bPC6DuTnf_7Ok0RHnIbw&s", page: "vanilla_sponge_cake.html" ,cat:"nonveg"},
+            { name: "Vanilla Ice Cream Cake", img: "https://amritfood.com/wp-content/uploads/2021/11/vanilla-ice-cream.jpeg", page: "vanilla_ice_cream_cake.html" ,cat:"nonveg"},
+
+            { name: "Red Velvet Cake", img: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Red_Velvet_Cake_Waldorf_Astoria.jpg", page: "red_velvet_cake.html" ,cat:"nonveg"},
+            { name: "Strawberry Shortcake", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5t1PVFznuYnWftI_EU3Y9oUQ-D36RY9kzSQ&s", page: "strawberry_shortcake.html" ,cat:"nonveg"},
+            { name: "Black Forest Cake", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcxxb0E--d2bKmiQk4e-AlysSbQz9uY14x4g&s", page: "black_forest_cake.html",cat:"nonveg" },
+
+            { name: "Pineapple Upside-Down Cake", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA0KTB-dvn3akofNnX4BOklMCmr7PUP3qERQ&s", page: "pineapple_cake.html" ,cat:"veg"},
+
+            { name: "Mango Mousse Cake", img: "https://thecakegirls.com/wp-content/uploads/2024/12/Mango-Passion-Fruit-Mousse-Cake-recipe.jpg", page: "mango_mousse_cake.html" ,cat:"veg"},
+            { name: "Carrot Cake", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA-F8BhwtoJinOeRaTR3AagEBt7V9IG2QNgg&s", page: "carrot_cake.html" ,cat:"veg"},
+            { name: "Butterscotch Cake", img: "https://thomsonline.in/wp-content/uploads/2019/08/BUTTERSCOTCH-CAKE-3.jpg", page: "butterscotch_cake.html" ,cat:"veg"},
+
+            { name: "Coffee Walnut Cake", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfp6q-qeqNlUx4JR-7lWMh-1L0NoxLA9XnTw&s", page: "coffee_walnut_cake.html" ,cat:"veg"}
+        ];
+        function findrecipe() {
+          let searcheditems = document.getElementById("t1").value.toLowerCase();
+          let res = document.getElementById("details");
+          res.innerHTML = ""; // Clear previous results
+          let filteredItems = recipes.filter(item => item.name.toLowerCase().includes(searcheditems) || item.cat.toLowerCase() === searcheditems);
+          
+          if (filteredItems.length === 0) {
+              res.innerHTML = "<p>No recipes found</p>";
+          } else {
+              filteredItems.forEach(item => {
+                  let card = document.createElement("div");
+                  card.classList.add("card");
+                  card.innerHTML = `
+                      <img src="${item.img}" alt="${item.name}">
+                      <h3>${item.name}</h3>
+                      <a href="${item.page}"><button>View details</button></a>
+                  `;
+                  res.appendChild(card);
+              });
+          }
+        }
+    </script>
+  </body>
+</html>
